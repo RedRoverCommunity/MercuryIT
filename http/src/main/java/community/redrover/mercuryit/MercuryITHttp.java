@@ -13,8 +13,8 @@ public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
     private HttpRequest.Builder request;
     private HttpRequest.BodyPublisher body;
 
-    private final String contentType = "Content-Type";
-    private final String contentValue = "application/json";
+    private static final String CONTENT_TYPE = "Content-Type";
+    private static final String CONTENT_VALUE = "application/json";
 
     MercuryITHttp(MercuryITConfigHolder configHolder) {
         super(configHolder);
@@ -56,7 +56,7 @@ public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
     }
 
     public MercuryITHttpResponse post() {
-        request = request.header(contentType, contentValue);
+        request = request.header(CONTENT_TYPE, CONTENT_VALUE);
         if (body != null) {
             request = request.POST(body);
         }
@@ -73,7 +73,7 @@ public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
     }
 
     public MercuryITHttpResponse put() {
-        request = request.header(contentType, contentValue);
+        request = request.header(CONTENT_TYPE, CONTENT_VALUE);
         if (body != null) {
             request = request.PUT(body);
         }
@@ -82,7 +82,7 @@ public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
     }
 
     public MercuryITHttpResponse patch() {
-        request = request.header(contentType, contentValue);
+        request = request.header(CONTENT_TYPE, CONTENT_VALUE);
         if (body != null) {
             request =  request.method("PATCH", body);
         }
