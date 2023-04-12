@@ -29,12 +29,12 @@ public class Assertion<Self> {
         return self;
     }
 
-    public Self istNull(Object actual, String message) {
+    public Self isNull(Object actual, String message) {
         Assertions.assertNull(actual, message);
         return self;
     }
 
-    public Self istNull(Object actual) {
+    public Self isNull(Object actual) {
         Assertions.assertNull(actual);
         return self;
     }
