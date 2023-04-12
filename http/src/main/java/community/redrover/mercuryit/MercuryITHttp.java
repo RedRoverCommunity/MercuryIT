@@ -10,11 +10,11 @@ import java.net.http.HttpResponse;
 
 public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
 
-    private HttpRequest.Builder request;
-    private HttpRequest.BodyPublisher body;
-
     private static final String CONTENT_TYPE = "Content-Type";
     private static final String CONTENT_VALUE = "application/json";
+
+    private HttpRequest.Builder request;
+    private HttpRequest.BodyPublisher body;
 
     MercuryITHttp(MercuryITConfigHolder configHolder) {
         super(configHolder);
