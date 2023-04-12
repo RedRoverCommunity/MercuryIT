@@ -33,10 +33,10 @@ class AssertionTest {
     @Test
     void testIsNull() {
         ASSERTION.isNull(null);
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> {ASSERTION.isNull(123);});
+        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> ASSERTION.isNull(123));
 
         final String message = "failed assertion message";
         ASSERTION.isNull(null, message);
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> {ASSERTION.isNull(123);}, message);
+        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> ASSERTION.isNull(123), message);
     }
 }
