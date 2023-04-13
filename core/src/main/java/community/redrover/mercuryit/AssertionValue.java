@@ -20,4 +20,13 @@ public class AssertionValue<Self, Value> {
     public Self equalsTo(Object expected) {
         return equalsTo(expected, null);
     }
+
+    public Self isEmpty(String message) {
+        Assertions.assertEquals("", this.value, message);
+        return this.self;
+    }
+
+    public Self isEmpty() {
+        return isEmpty(null);
+    }
 }
