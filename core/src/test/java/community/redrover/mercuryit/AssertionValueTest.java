@@ -40,8 +40,8 @@ class AssertionValueTest {
         assertionValueEmpty.isEmpty();
 
         final AssertionValue<Object, String> assertionValueNull = new AssertionValue<>(self, VALUE_NULL);
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> assertionValueNull.isEmpty(ERROR_MESSAGE));
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, assertionValueNull::isEmpty);
+        assertionValueNull.isEmpty(ERROR_MESSAGE);
+        assertionValueNull.isEmpty();
 
         final AssertionValue<Object, String> assertionValue123 = new AssertionValue<>(self, VALUE_123);
         Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> assertionValue123.isEmpty(ERROR_MESSAGE));
