@@ -27,6 +27,12 @@ public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
         return this;
     }
 
+    public MercuryITHttp uriF(String uri, Object... args) {
+        request = request.uri(URI.create(String.format(uri, args)));
+
+        return this;
+    }
+
     public MercuryITHttp body() {
         return body(null);
     }
