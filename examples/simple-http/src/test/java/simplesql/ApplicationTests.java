@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -27,7 +27,7 @@ public class ApplicationTests {
     @Order(1)
     public void testCreateEmployee() {
         MercuryIT.request(MercuryITHttp.class)
-                .uri(String.format("http://localhost:%d/api/employees/create", port))
+                .uri(String.format("http://localhost:%d/api/employee/create", port))
                 .body(storedEmployee)
                 .post()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
@@ -42,7 +42,7 @@ public class ApplicationTests {
     @Order(2)
     public void testGetListEmployees() {
         MercuryIT.request(MercuryITHttp.class)
-                .uri(String.format("http://localhost:%d/api/employees/list", port))
+                .uri(String.format("http://localhost:%d/api/employee/list", port))
                 .get()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
                 .apply(response ->
@@ -55,7 +55,7 @@ public class ApplicationTests {
     @Order(3)
     public void testGetEmployeeById() {
         MercuryIT.request(MercuryITHttp.class)
-                .uri(String.format("http://localhost:%d/api/employees/%d", port, storedEmployee.getId()))
+                .uri(String.format("http://localhost:%d/api/employee/%d", port, storedEmployee.getId()))
                 .get()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
                 .apply(response ->
@@ -72,7 +72,7 @@ public class ApplicationTests {
                 .build();
 
         MercuryIT.request(MercuryITHttp.class)
-                .uri(String.format("http://localhost:%d/api/employees/edit", port))
+                .uri(String.format("http://localhost:%d/api/employee/edit", port))
                 .body(editEmployee)
                 .put()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
@@ -90,7 +90,7 @@ public class ApplicationTests {
                 .build();
 
         MercuryIT.request(MercuryITHttp.class)
-                .uri(String.format("http://localhost:%d/api/employees/update/%d", port, storedEmployee.getId()))
+                .uri(String.format("http://localhost:%d/api/employee/update/%d", port, storedEmployee.getId()))
                 .body(editEmployee)
                 .patch()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
@@ -105,7 +105,7 @@ public class ApplicationTests {
     @Order(6)
     public void testDeleteEmployee() {
         MercuryIT.request(MercuryITHttp.class)
-                .uri(String.format("http://localhost:%d/api/employees/delete/%d", port, storedEmployee.getId()))
+                .uri(String.format("http://localhost:%d/api/employee/delete/%d", port, storedEmployee.getId()))
                 .delete()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
                 .assertion(MercuryITHttpResponse::getBody).isEmpty();
