@@ -15,7 +15,6 @@
         <module>json</module>
 
         <module>http</module>
-        <module>sql</module>
     </modules>
 
     <properties>
