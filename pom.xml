@@ -15,6 +15,7 @@
         <module>json</module>
 
         <module>http</module>
+        <module>sql</module>
     </modules>
 
     <properties>
@@ -31,13 +32,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.3.1</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
