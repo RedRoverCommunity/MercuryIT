@@ -1,4 +1,4 @@
-package simple;
+package java.simple;
 
 import community.redrover.mercuryit.MercuryIT;
 import community.redrover.mercuryit.MercuryITHttp;
@@ -6,6 +6,7 @@ import community.redrover.mercuryit.MercuryITHttpResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import simple.EmployeeEntity;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
