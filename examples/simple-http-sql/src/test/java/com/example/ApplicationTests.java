@@ -49,8 +49,8 @@ public class ApplicationTests {
     private static Stream<Arguments> employeesData() {
         return Stream.of(
                 Arguments.of("Yuliya", "SDET"),
-                Arguments.of("Inna", "DEV"),
-                Arguments.of("Lena", "QA lead"),
+                Arguments.of("Inna", "Developer"),
+                Arguments.of("Lena", "QA Lead"),
                 Arguments.of("Ira", "SDET"),
                 Arguments.of("Liudmila", "PM"),
                 Arguments.of("Viktoriya", "QA Engineer"),
