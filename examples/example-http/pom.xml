@@ -7,9 +7,9 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>examples</artifactId>
+        <artifactId>example-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>simple-http</artifactId>
+    <artifactId>example-http</artifactId>
 </project>

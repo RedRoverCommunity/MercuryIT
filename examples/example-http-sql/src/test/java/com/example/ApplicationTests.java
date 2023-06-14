@@ -7,6 +7,8 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,11 +18,15 @@ import java.util.List;
 import java.util.Properties;
 import java.util.stream.Stream;
 
+
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApplicationTests {
 
-    private static final int PORT = 8080;
+    @LocalServerPort
+    private int port;
+
     private static final String DB_CONNECTION_STR;
     private static final String DB_USER;
     private static final String DB_PASSWORD;
@@ -69,7 +75,7 @@ public class ApplicationTests {
                 .build();
 
         MercuryIT.request(MercuryITHttp.class)
-                .urif("http://localhost:%d/api/employee/create", PORT)
+                .urif("http://localhost:%d/api/employee/create", port)
                 .body(initialEmployee)
                 .post()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
@@ -101,7 +107,7 @@ public class ApplicationTests {
     @Order(2)
     public void testGetListOfEmployees() throws ClassNotFoundException {
         MercuryIT.request(MercuryITHttp.class)
-                .urif("http://localhost:%d/api/employee/list", PORT)
+                .urif("http://localhost:%d/api/employee/list", port)
                 .get()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
                 .accept(response ->
@@ -134,7 +140,7 @@ public class ApplicationTests {
         storedEmployee = employeesList.get(3);
 
         MercuryIT.request(MercuryITHttp.class)
-                .urif("http://localhost:%d/api/employee/%d", PORT, storedEmployee.getId())
+                .urif("http://localhost:%d/api/employee/%d", port, storedEmployee.getId())
                 .get()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
                 .accept(response ->
@@ -151,7 +157,7 @@ public class ApplicationTests {
                 .build();
 
         MercuryIT.request(MercuryITHttp.class)
-                .urif("http://localhost:%d/api/employee/edit", PORT)
+                .urif("http://localhost:%d/api/employee/edit", port)
                 .body(initialEmployee)
                 .put()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
@@ -186,7 +192,7 @@ public class ApplicationTests {
                 .build();
 
         MercuryIT.request(MercuryITHttp.class)
-                .urif("http://localhost:%d/api/employee/update/%d", PORT, storedEmployee.getId())
+                .urif("http://localhost:%d/api/employee/update/%d", port, storedEmployee.getId())
                 .body(initialEmployee)
                 .patch()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
@@ -217,7 +223,7 @@ public class ApplicationTests {
     @Order(6)
     public void testDeleteEmployeeByID() throws ClassNotFoundException {
         MercuryIT.request(MercuryITHttp.class)
-                .urif("http://localhost:%d/api/employee/delete/%d", PORT, storedEmployee.getId())
+                .urif("http://localhost:%d/api/employee/delete/%d", port, storedEmployee.getId())
                 .delete()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
                 .assertion(MercuryITHttpResponse::getBody).isEmpty();
