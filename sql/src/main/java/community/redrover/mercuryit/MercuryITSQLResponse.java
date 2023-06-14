@@ -3,14 +3,13 @@ package community.redrover.mercuryit;
 import lombok.SneakyThrows;
 
 import java.lang.ref.Cleaner;
-import java.lang.reflect.Constructor;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.sql.ResultSetMetaData;
+import java.util.*;
 
-public class MercuryITSQLResponse extends MercuryITObject<MercuryITSQLResponse> {
+
+@SuppressWarnings("unchecked")
+public class MercuryITSQLResponse extends MercuryITResponse<MercuryITSQLResponse> {
 
     private static class ResultSetHolder {
 
@@ -28,26 +27,12 @@ public class MercuryITSQLResponse extends MercuryITObject<MercuryITSQLResponse> 
 
     private final ResultSet resultSet;
 
-    MercuryITSQLResponse(ResultSet resultSet) {
-        super(null);
+    MercuryITSQLResponse(MercuryITConfigHolder configHolder, ResultSet resultSet) {
+        super(configHolder);
         this.resultSet = resultSet;
 
-		Cleaner cleaner = Cleaner.create();
+        Cleaner cleaner = Cleaner.create();
         cleaner.register(this, new ResultSetHolder(resultSet)::close);
-    }
-
-    private <T> Constructor<T> getConstructor(Class<T> clazz, int paramCount) {
-        Constructor<?> constructor = null;
-        for (Constructor<?> item : clazz.getConstructors()) {
-            if (item.getParameterCount() == paramCount) {
-                if (constructor != null) {
-                    throw new RuntimeException("Found multiple constructors with the same number of parameters");
-                }
-                constructor = item;
-            }
-        }
-
-        return (Constructor<T>) constructor;
     }
 
     @SneakyThrows
@@ -56,31 +41,44 @@ public class MercuryITSQLResponse extends MercuryITObject<MercuryITSQLResponse> 
     }
 
     @SneakyThrows
-    private Object getField(String name) {
-        return resultSet.getObject(name);
+    private Map<String, Object> getCurrentRow() {
+        Map<String, Object> resultMap = new TreeMap<>();
+
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        for (int i = 0; i < metaData.getColumnCount(); i++) {
+            resultMap.put(metaData.getColumnLabel(i), resultSet.getObject(i));
+        }
+
+        return resultMap;
     }
 
     @SneakyThrows
-    private <T> T getCurrentRow(Constructor<T> constructor, String... fields) {
-        return constructor.newInstance(Arrays.stream(fields).map(this::getField).toArray(Object[]::new));
-    }
-
-    @SneakyThrows
-    public <T> T getNextRow(Class<T> clazz, String... fields) {
+    public Map<String, Object> getNextRow() {
         if (resultSet.next()) {
-            return getCurrentRow(getConstructor(clazz, fields.length), fields);
+            return getCurrentRow();
         } else {
             return null;
         }
     }
 
     @SneakyThrows
-    public <T> List<T> getRows(Class<T> clazz, String... fields) {
-        List<T> resultList = new ArrayList<>();
-        Constructor<T> constructor = getConstructor(clazz, fields.length);
+    public <T> T getNextRow(Class<T> clazz) {
+        Map<String, Object> currentRow = getNextRow();
+        if (currentRow != null) {
+            return config(MercuryITJsonConfig.class).fromMap(currentRow, clazz);
+        } else {
+            return null;
+        }
+    }
 
-        while (resultSet.next()) {
-            resultList.add(getCurrentRow(constructor, fields));
+    @SneakyThrows
+    public <T> List<T> getRows(Class<T> clazz) {
+        List<T> resultList = new ArrayList<>();
+
+        T object = getNextRow(clazz);
+        while (object != null) {
+            resultList.add(object);
+            object = getNextRow(clazz);
         }
 
         return resultList;

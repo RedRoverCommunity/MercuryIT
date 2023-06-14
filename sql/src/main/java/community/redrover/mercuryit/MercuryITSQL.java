@@ -2,23 +2,24 @@ package community.redrover.mercuryit;
 
 import lombok.SneakyThrows;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-public class MercuryITSQL {
+public class MercuryITSQL extends MercuryITRequest<MercuryITSQL> {
 
-    private Connection connection;
+    MercuryITSQL(MercuryITConfigHolder configHolder) {
+        super(configHolder);
+    }
 
-    @SneakyThrows
-    public MercuryITSQL connection(String connect, String user, String password) {
-        Class.forName("org.h2.Driver");
-        connection = DriverManager.getConnection(connect, user, password);
-        return this;
+    public MercuryITSQLConnection connection() {
+        MercuryITSQLConfig mercuryITSQLConfig = config(MercuryITSQLConfig.class);
+        return connection(mercuryITSQLConfig.getDriver(), mercuryITSQLConfig.getConnect(),
+                mercuryITSQLConfig.getUsername(), mercuryITSQLConfig.getPassword());
     }
 
     @SneakyThrows
-    public MercuryITSQLResponse open(String query) {
-        return new MercuryITSQLResponse(connection.createStatement().executeQuery(query));
+    public MercuryITSQLConnection connection(String driver, String connect, String user, String password) {
+        Class.forName(driver);
+        return new MercuryITSQLConnection(getConfigHolder(), DriverManager.getConnection(connect, user, password));
     }
 }

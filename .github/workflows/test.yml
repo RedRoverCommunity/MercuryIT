@@ -33,5 +33,8 @@ jobs:
       - name: Install artifacts
         run: mvn install
 
+      - name: Set version
+        run: sed -i -E "0,/<release.version>*(.+<\/release.version>)/s//<release.version>dev<\/release.version>/g" ./examples/pom.xml
+
       - name: Test artifacts
-        run: mvn -f examples/simple-http/pom.xml test
+        run: mvn -f examples/pom.xml test

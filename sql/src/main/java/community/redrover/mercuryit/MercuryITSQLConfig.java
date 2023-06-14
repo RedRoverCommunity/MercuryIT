@@ -1,27 +1,57 @@
 package community.redrover.mercuryit;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import lombok.*;
 
 
-@Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
-public class MercuryITSQLConfig extends MercuryITConfig<MercuryITSQLConfig.MercuryITSQLConfigBuilder> {
+@Getter
+public class MercuryITSQLConfig extends MercuryITConfig {
 
-    protected static final String CONFIG_NAME = "sql";
+    static final String CONFIG_NAME = "sql";
 
-    protected static final String DRIVER_NAME = "driver";
-    protected static final String HOST_NAME = "host";
-    protected static final String PORT_NAME = "port";
-    protected static final String DATABASE_NAME = "dbname";
+    private String driver;
+    private String connect;
+    private String username;
+    private String password;
+
+    MercuryITSQLConfig(MercuryITConfigHolder configHolder) {
+        super(configHolder);
+        this.driver = configuration().getString(name(APP_NAME, CONFIG_NAME, "driver"));
+        this.connect = configuration().getString(name(APP_NAME, CONFIG_NAME, "connect"));
+        this.username = configuration().getString(name(APP_NAME, CONFIG_NAME, "username"));
+        this.password = configuration().getString(name(APP_NAME, CONFIG_NAME, "password"));
+    }
+
+    @Builder(toBuilder = true)
+    MercuryITSQLConfig(MercuryITConfigHolder configHolder, String driver, String connect, String username, String password) {
+        this(configHolder);
+        this.driver = driver;
+        this.connect = connect;
+        this.username = username;
+        this.password = password;
+    }
 
     @Override
-    public MercuryITConfig<MercuryITSQLConfigBuilder> copy() {
-        return this.toBuilder().build();
+    protected MercuryITConfig copy(MercuryITConfigHolder configHolder) {
+        return this.toBuilder().configHolder(configHolder).build();
+    }
+
+    public MercuryITSQLConfig driver(String driver) {
+        this.driver = driver;
+        return this;
+    }
+
+    public MercuryITSQLConfig connect(String connect) {
+        this.connect = connect;
+        return this;
+    }
+
+    public MercuryITSQLConfig username(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public MercuryITSQLConfig password(String password) {
+        this.password = password;
+        return this;
     }
 }
