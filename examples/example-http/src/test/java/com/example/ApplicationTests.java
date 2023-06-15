@@ -1,10 +1,8 @@
-package community.redrover.mercuryit.example.http;
+package com.example;
 
 import community.redrover.mercuryit.MercuryIT;
 import community.redrover.mercuryit.MercuryITHttp;
 import community.redrover.mercuryit.MercuryITHttpResponse;
-import community.redrover.mercuryit.example.http.Application;
-import community.redrover.mercuryit.example.http.EmployeeEntity;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;

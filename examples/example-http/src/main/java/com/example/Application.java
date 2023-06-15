@@ -1,4 +1,4 @@
-package community.redrover.mercuryit.example.http;
+package com.example;
 
 import lombok.extern.java.Log;
 import org.springframework.boot.SpringApplication;

@@ -1,4 +1,4 @@
-package community.redrover.mercuryit.example.httpsql;
+package com.example;
 
 import lombok.*;
 

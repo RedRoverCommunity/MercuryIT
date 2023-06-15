@@ -1,4 +1,4 @@
-package community.redrover.mercuryit.example.httpsql;
+package com.example;
 
 import lombok.extern.java.Log;
 import org.h2.tools.Server;
