@@ -1,4 +1,4 @@
-package com.example;
+package community.redrover.mercuryit.example.sql;
 
 import lombok.extern.java.Log;
 import org.h2.tools.Server;

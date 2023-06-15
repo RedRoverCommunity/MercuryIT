@@ -1,4 +1,4 @@
-package com.example;
+package community.redrover.mercuryit.example.sql;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

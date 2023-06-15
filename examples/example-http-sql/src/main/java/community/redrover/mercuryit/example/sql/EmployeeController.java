@@ -1,4 +1,4 @@
-package com.example;
+package community.redrover.mercuryit.example.sql;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

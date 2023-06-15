@@ -1,4 +1,4 @@
-package com.example;
+package community.redrover.mercuryit.example.http;
 
 import community.redrover.mercuryit.MercuryIT;
 import community.redrover.mercuryit.MercuryITHttp;
@@ -7,11 +7,16 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
+import java.util.Map;
+
 
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApplicationTests {
+
+    private static final String EMPLOYEE_NAME = "Sergey";
+    private static final String EMPLOYEE_TITLE = "Developer";
 
     @LocalServerPort
     private int port;
@@ -64,38 +69,34 @@ public class ApplicationTests {
     @Test
     @Order(4)
     public void testEditEmployee() {
-        EmployeeEntity editEmployee = EmployeeEntity.builder()
+        EmployeeEntity expectedEmployee = EmployeeEntity.builder()
                 .id(storedEmployee.getId())
-                .name("Sergei")
+                .name(EMPLOYEE_NAME)
                 .build();
 
         MercuryIT.request(MercuryITHttp.class)
                 .urlf("http://localhost:%d/api/employee/edit", port)
-                .body(editEmployee)
+                .body(expectedEmployee)
                 .put()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
-                .accept(response -> {
-                    Assertions.assertNull(response.getBody(EmployeeEntity.class).getTitle());
-                    Assertions.assertEquals(editEmployee, response.getBody(EmployeeEntity.class));
-                });
+                .accept(response ->
+                    Assertions.assertEquals(expectedEmployee, response.getBody(EmployeeEntity.class)));
     }
 
     @Test
     @Order(5)
     public void testUpdateEmployee() {
-        EmployeeEntity editEmployee = EmployeeEntity.builder()
-                .title("Developer")
-                .build();
-
         MercuryIT.request(MercuryITHttp.class)
                 .urlf("http://localhost:%d/api/employee/update/%d", port, storedEmployee.getId())
-                .body(editEmployee)
+                .body(Map.of("title", EMPLOYEE_TITLE))
                 .patch()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
                 .accept(response -> {
-                    Assertions.assertNotNull(response.getBody(EmployeeEntity.class).getName());
-                    Assertions.assertEquals("Sergei",  response.getBody(EmployeeEntity.class).getName());
-                    Assertions.assertEquals(editEmployee.getTitle(), response.getBody(EmployeeEntity.class).getTitle());
+                    EmployeeEntity actualEmployeeEntity = response.getBody(EmployeeEntity.class);
+
+                    Assertions.assertNotNull(actualEmployeeEntity);
+                    Assertions.assertEquals(EMPLOYEE_NAME,  actualEmployeeEntity.getName());
+                    Assertions.assertEquals(EMPLOYEE_TITLE, actualEmployeeEntity.getTitle());
                 });
     }
 

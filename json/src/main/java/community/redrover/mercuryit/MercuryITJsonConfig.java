@@ -1,6 +1,9 @@
 package community.redrover.mercuryit;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.*;
 
 import java.util.Map;
@@ -13,7 +16,10 @@ public class MercuryITJsonConfig extends MercuryITConfig {
 
     private static class JsonJackson {
 
-        private final ObjectMapper objectMapper = new ObjectMapper();
+        private final ObjectMapper objectMapper = JsonMapper.builder()
+                    .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    .build();
 
         public <T> T fromMap(Map<String, Object> map, Class<T> clazz) {
             return objectMapper.convertValue(map, clazz);

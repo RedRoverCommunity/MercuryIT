@@ -37,7 +37,7 @@ public class MercuryITSQLResponse extends MercuryITResponse<MercuryITSQLResponse
 
     @SneakyThrows
     public boolean isEmpty() {
-        return this.resultSet.isFirst() && this.resultSet.isLast();
+        return this.resultSet.getRow() == 0 && !this.resultSet.isBeforeFirst();
     }
 
     @SneakyThrows
@@ -45,7 +45,7 @@ public class MercuryITSQLResponse extends MercuryITResponse<MercuryITSQLResponse
         Map<String, Object> resultMap = new TreeMap<>();
 
         ResultSetMetaData metaData = resultSet.getMetaData();
-        for (int i = 0; i < metaData.getColumnCount(); i++) {
+        for (int i = 1; i <= metaData.getColumnCount(); i++) {
             resultMap.put(metaData.getColumnLabel(i), resultSet.getObject(i));
         }
 

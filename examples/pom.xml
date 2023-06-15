@@ -65,7 +65,8 @@
             <scope>provided</scope>
         </dependency>
 
-<!--    This is dependency from the global repository
+<!-- These are dependencies from the global repository -->
+<!-- global dependencies start -->
         <dependency>
             <groupId>com.github.RedRoverCommunity.MercuryIT</groupId>
             <artifactId>mercuryit-http</artifactId>
@@ -78,9 +79,10 @@
             <version>${release.version}</version>
             <scope>test</scope>
         </dependency>
--->
-<!--    Next dependency is from local repository. If you want to use it you should run 'mvn install' for MercuryIT project -->
+<!-- global dependencies stop -->
 
+<!-- These are dependencies from the local repository. If you want to use it you should run 'mvn install' for MercuryIT project -->
+<!-- local dependencies start
         <dependency>
             <groupId>community.redrover.mercuryit</groupId>
             <artifactId>mercuryit-http</artifactId>
@@ -93,7 +95,7 @@
             <version>dev</version>
             <scope>test</scope>
         </dependency>
-
+local dependencies stop -->
     </dependencies>
 
     <build>
