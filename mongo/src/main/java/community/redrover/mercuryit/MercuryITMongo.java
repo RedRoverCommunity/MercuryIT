@@ -20,7 +20,7 @@ public class MercuryITMongo extends MercuryITRequest<MercuryITMongo> {
         return connection(mercuryITMongoConfig.getUri());
     }
 
-    public MercuryITMongoClient connection(String url) {
+    public MercuryITMongoClient connection(String uri) {
         CodecRegistry pojoCodecRegistry = CodecRegistries.fromProviders(
                 PojoCodecProvider.builder()
                         .automatic(true)
@@ -32,7 +32,7 @@ public class MercuryITMongo extends MercuryITRequest<MercuryITMongo> {
                 pojoCodecRegistry);
 
         MongoClientSettings clientSettings = MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString(url))
+                .applyConnectionString(new ConnectionString(uri))
                 .codecRegistry(codecRegistry)
                 .build();
 
