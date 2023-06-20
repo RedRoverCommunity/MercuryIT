@@ -55,8 +55,9 @@ public class ApplicationTests {
                 .urlf("http://localhost:%d/api/employee/create", port)
                 .body(expectedEmployee)
                 .post()
-                .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
-                .accept(response -> {
+                .assertion(MercuryITHttpResponse::getCode)
+                .equalsTo(200)
+                .peek(response -> {
                     EmployeeEntity actualEmployee = response.getBody(EmployeeEntity.class);
                     expectedEmployee.setId(actualEmployee.getId());
                     storedEmployeesList.add(actualEmployee);
@@ -67,7 +68,7 @@ public class ApplicationTests {
                 .request(MercuryITSQL.class)
                 .connection()
                 .openf("select * from EMPLOYEE_ENTITY where ID = %d", expectedEmployee.getId())
-                .accept(response ->
+                .peek(response ->
                     Assertions.assertEquals(expectedEmployee,
                             response.getNextRow(EmployeeEntity.class)));
     }
@@ -79,7 +80,7 @@ public class ApplicationTests {
                 .urlf("http://localhost:%d/api/employee/list", port)
                 .get()
                 .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
-                .accept(response ->
+                .peek(response ->
                         Assertions.assertArrayEquals(storedEmployeesList.toArray(EmployeeEntity[]::new),
                                 response.getBody(EmployeeEntity[].class))
                 )
@@ -87,7 +88,7 @@ public class ApplicationTests {
                 .request(MercuryITSQL.class)
                 .connection()
                 .open("select * from EMPLOYEE_ENTITY")
-                .accept(response ->
+                .peek(response ->
                         Assertions.assertArrayEquals(storedEmployeesList.toArray(EmployeeEntity[]::new),
                                 response.getRows(EmployeeEntity.class).toArray(EmployeeEntity[]::new)));
     }
@@ -100,15 +101,16 @@ public class ApplicationTests {
         MercuryIT.request(MercuryITHttp.class)
                 .urlf("http://localhost:%d/api/employee/%d", port, storedEmployee.getId())
                 .get()
-                .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
-                .accept(response ->
+                .assertion(MercuryITHttpResponse::getCode)
+                .equalsTo(200)
+                .peek(response ->
                         Assertions.assertEquals(storedEmployee, response.getBody(EmployeeEntity.class))
                 );
     }
 
     @Test
     @Order(4)
-    public void testEditEmployee() throws ClassNotFoundException {
+    public void testEditEmployee() {
         EmployeeEntity expectedEmployee = EmployeeEntity.builder()
                 .id(storedEmployee.getId())
                 .name(EMPLOYEE_NAME)
@@ -118,30 +120,31 @@ public class ApplicationTests {
                 .urlf("http://localhost:%d/api/employee/edit", port)
                 .body(expectedEmployee)
                 .put()
-                .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
-                .accept(response ->
+                .assertion(MercuryITHttpResponse::getCode)
+                .equalsTo(200)
+                .peek(response ->
                     Assertions.assertEquals(expectedEmployee, response.getBody(EmployeeEntity.class))
                 )
 
                 .request(MercuryITSQL.class)
                 .connection()
                 .openf("select * from EMPLOYEE_ENTITY where ID = %d", expectedEmployee.getId())
-                .accept(response ->
+                .peek(response ->
                         Assertions.assertEquals(expectedEmployee,
                                 response.getNextRow(EmployeeEntity.class)));
     }
 
     @Test
     @Order(5)
-    public void testUpdateEmployee() throws ClassNotFoundException {
+    public void testUpdateEmployee() {
         MercuryIT.request(MercuryITHttp.class)
                 .urlf("http://localhost:%d/api/employee/update/%d", port, storedEmployee.getId())
                 .body(Map.of("title", EMPLOYEE_TITLE))
                 .patch()
-                .assertion(MercuryITHttpResponse::getCode).equalsTo(200)
-                .accept(response -> {
-                    EmployeeEntity actualEmployeeEntity = response.getBody(EmployeeEntity.class);
-
+                .assertion(MercuryITHttpResponse::getCode)
+                .equalsTo(200)
+                .assertion(response -> response.getBody(EmployeeEntity.class))
+                .peek(actualEmployeeEntity -> {
                     Assertions.assertNotNull(actualEmployeeEntity);
                     Assertions.assertEquals(EMPLOYEE_NAME, actualEmployeeEntity.getName());
                     Assertions.assertEquals(EMPLOYEE_TITLE, actualEmployeeEntity.getTitle());
@@ -150,10 +153,10 @@ public class ApplicationTests {
                 .request(MercuryITSQL.class)
                 .connection()
                 .openf("select * from EMPLOYEE_ENTITY where ID = %d", storedEmployee.getId())
-                .assertion(MercuryITSQLResponse::isEmpty).equalsTo(false)
-                .accept(response -> {
-                    EmployeeEntity actualEmployeeEntity = response.getNextRow(EmployeeEntity.class);
-
+                .assertion(MercuryITSQLResponse::isEmpty)
+                .equalsTo(false)
+                .assertion(response -> response.getNextRow(EmployeeEntity.class))
+                .peek(actualEmployeeEntity -> {
                     Assertions.assertNotNull(actualEmployeeEntity);
                     Assertions.assertEquals(EMPLOYEE_NAME, actualEmployeeEntity.getName());
                     Assertions.assertEquals(EMPLOYEE_TITLE, actualEmployeeEntity.getTitle());
@@ -162,7 +165,7 @@ public class ApplicationTests {
 
     @Test
     @Order(6)
-    public void testDeleteEmployee() throws ClassNotFoundException {
+    public void testDeleteEmployee() {
         MercuryIT.request(MercuryITHttp.class)
                 .urlf("http://localhost:%d/api/employee/delete/%d", port, storedEmployee.getId())
                 .delete()
@@ -172,6 +175,7 @@ public class ApplicationTests {
                 .request(MercuryITSQL.class)
                 .connection()
                 .openf("select * from EMPLOYEE_ENTITY where ID = %d", storedEmployee.getId())
-                .assertion(MercuryITSQLResponse::isEmpty).equalsTo(true);
+                .assertion(MercuryITSQLResponse::isEmpty)
+                .equalsTo(true);
     }
 }

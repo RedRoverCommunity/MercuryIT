@@ -8,20 +8,20 @@ public class MercuryITMongoConfig extends MercuryITConfig {
 
     static final String CONFIG_NAME = "mongo";
 
-    private String url;
-    private String db;
+    private String uri;
+    private String database;
 
     MercuryITMongoConfig(MercuryITConfigHolder configHolder) {
         super(configHolder);
-        this.url = configuration().getString(name(APP_NAME, CONFIG_NAME, "url"));
-        this.db = configuration().getString(name(APP_NAME, CONFIG_NAME, "db"));
+        this.uri = configuration().getString(name(APP_NAME, CONFIG_NAME, "uri"));
+        this.database = configuration().getString(name(APP_NAME, CONFIG_NAME, "database"));
     }
 
     @Builder(toBuilder = true)
-    MercuryITMongoConfig(MercuryITConfigHolder configHolder, String url, String db) {
+    MercuryITMongoConfig(MercuryITConfigHolder configHolder, String uri, String database) {
         this(configHolder);
-        this.url = url;
-        this.db = db;
+        this.uri = uri;
+        this.database = database;
     }
 
     @Override
@@ -29,13 +29,13 @@ public class MercuryITMongoConfig extends MercuryITConfig {
         return this.toBuilder().configHolder(configHolder).build();
     }
 
-    public MercuryITMongoConfig url(String url) {
-        this.url = url;
+    public MercuryITMongoConfig uri(String uri) {
+        this.uri = uri;
         return this;
     }
 
-    public MercuryITMongoConfig db(String db) {
-        this.url = db;
+    public MercuryITMongoConfig database(String database) {
+        this.uri = database;
         return this;
     }
 }
