@@ -45,9 +45,9 @@ public abstract class MercuryITConfig extends MercuryITObject<MercuryITConfig> {
     public static final String APP_NAME = "mercuryit";
 
     /**
-     * Constructs a property name to be retrieved from the configuration's map; intended to be used by the configuration's getString() method.
+     * Constructs a property name to be retrieved from the config's map; intended to be used by the Configuration's getString() method.
      * @param names components that are combined to generate the property name
-     * @return a property name, formatted in the style of a configuration key
+     * @return a property name, formatted in the style of a config key
      */
     public static String name(String... names) {
         StringBuilder fullName = new StringBuilder();
