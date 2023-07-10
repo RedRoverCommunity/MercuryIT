@@ -42,6 +42,15 @@ public class ApplicationTests {
         );
     }
 
+    /**
+     * Adds configs to MercuryIT's ConfigHolder, to avoid creating them on-the-spot for every MercuryIT.request() call
+     */
+    @BeforeAll
+    public void beforeAll() {
+        MercuryIT.config(MercuryITHttpConfig.class);
+        MercuryIT.config(MercuryITSQLConfig.class);
+    }
+
     @ParameterizedTest
     @MethodSource("employeesData")
     @Order(1)

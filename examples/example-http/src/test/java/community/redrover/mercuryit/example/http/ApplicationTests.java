@@ -2,6 +2,7 @@ package community.redrover.mercuryit.example.http;
 
 import community.redrover.mercuryit.MercuryIT;
 import community.redrover.mercuryit.MercuryITHttp;
+import community.redrover.mercuryit.MercuryITHttpConfig;
 import community.redrover.mercuryit.MercuryITHttpResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +26,14 @@ public class ApplicationTests {
             .name("Pavel")
             .title("QA")
             .build();
+
+    /**
+     * Adds configs to MercuryIT's ConfigHolder, to avoid creating them on-the-spot for every MercuryIT.request() call
+     */
+    @BeforeAll
+    public void beforeAll() {
+        MercuryIT.config(MercuryITHttpConfig.class);
+    }
 
     @Test
     @Order(1)
