@@ -26,7 +26,7 @@ public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
 
     private HttpRequest build() {
         Map<String, String> headerMap = new TreeMap<>();
-        headerMap.putAll(localConfig(MercuryITHttpConfig.class).getHeader());
+        headerMap.putAll(contextConfig(MercuryITHttpConfig.class).getHeader());
         headerMap.putAll(header);
 
         for (Map.Entry<String, String> entry : headerMap.entrySet()) {
@@ -69,7 +69,7 @@ public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
     public <T> MercuryITHttp body(T body) {
         String bodyStr = null;
         if (body != null) {
-            bodyStr = localConfig(MercuryITJsonConfig.class).toJson(body);
+            bodyStr = contextConfig(MercuryITJsonConfig.class).toJson(body);
         }
 
         return body(bodyStr);

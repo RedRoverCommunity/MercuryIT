@@ -15,7 +15,7 @@ public class MercuryITMongoClient extends MercuryITResponseAutoCloseable<Mercury
     }
 
     public MercuryITMongoResponse database() {
-        MercuryITMongoConfig mercuryITMongoConfig = localConfig(MercuryITMongoConfig.class);
+        MercuryITMongoConfig mercuryITMongoConfig = contextConfig(MercuryITMongoConfig.class);
         return database(mercuryITMongoConfig.getDatabase());
     }
 

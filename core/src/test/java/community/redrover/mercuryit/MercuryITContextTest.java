@@ -56,10 +56,10 @@ public class MercuryITContextTest {
         final String local_value = "local_value";
 
         String local_result = MercuryIT.request(MercuryITContext.class)
-                .localConfig(MercuryITTestConfig.class)
+                .contextConfig(MercuryITTestConfig.class)
                 .value(local_value)
                 .request(MercuryITTestRequest.class)
-                .localConfig(MercuryITTestConfig.class)
+                .contextConfig(MercuryITTestConfig.class)
                 .getValue();
 
         String global_result = MercuryIT.globalConfig(MercuryITTestConfig.class)

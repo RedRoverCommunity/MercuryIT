@@ -21,12 +21,12 @@ public abstract class MercuryITObject<Self extends MercuryITObject<Self>> {
         return MercuryIT.request(clazz, getConfigHolder());
     }
 
-    public <Config extends MercuryITConfig> Config localConfig(Class<Config> clazz) {
+    public <Config extends MercuryITConfig> Config contextConfig(Class<Config> clazz) {
         return getConfigHolder().config(clazz);
     }
 
-    public <Config extends MercuryITConfig> Self localConfig(Class<Config> clazz, Function<Config, Config> configFunction) {
-        this.getConfigHolder().set(clazz, configFunction.apply(localConfig(clazz)));
+    public <Config extends MercuryITConfig> Self contextConfig(Class<Config> clazz, Function<Config, Config> configFunction) {
+        this.getConfigHolder().set(clazz, configFunction.apply(contextConfig(clazz)));
         return (Self) this;
     }
 }
