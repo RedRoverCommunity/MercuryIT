@@ -16,7 +16,7 @@ public class MercuryITMongo extends MercuryITRequest<MercuryITMongo> {
     }
 
     public MercuryITMongoClient connection() {
-        MercuryITMongoConfig mercuryITMongoConfig = config(MercuryITMongoConfig.class);
+        MercuryITMongoConfig mercuryITMongoConfig = contextConfig(MercuryITMongoConfig.class);
         return connection(mercuryITMongoConfig.getUri());
     }
 
