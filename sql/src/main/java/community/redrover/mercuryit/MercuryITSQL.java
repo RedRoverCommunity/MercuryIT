@@ -20,6 +20,6 @@ public class MercuryITSQL extends MercuryITRequest<MercuryITSQL> {
     @SneakyThrows
     public MercuryITSQLConnection connection(String driver, String connect, String user, String password) {
         Class.forName(driver);
-        return new MercuryITSQLConnection(getLocalConfigHolder(), DriverManager.getConnection(connect, user, password));
+        return new MercuryITSQLConnection(getConfigHolder(), DriverManager.getConnection(connect, user, password));
     }
 }

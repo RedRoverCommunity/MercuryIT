@@ -21,6 +21,6 @@ public class MercuryITHttpResponse extends MercuryITResponse<MercuryITHttpRespon
     }
 
     public <T> T getBody(Class<T> clazz) {
-        return  getLocalConfigHolder().config(MercuryITJsonConfig.class).fromJson(getBody(), clazz);
+        return  getConfigHolder().config(MercuryITJsonConfig.class).fromJson(getBody(), clazz);
     }
 }

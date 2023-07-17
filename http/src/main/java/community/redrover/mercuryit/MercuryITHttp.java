@@ -85,7 +85,7 @@ public class MercuryITHttp extends MercuryITRequest<MercuryITHttp> {
 
     @SneakyThrows
     private MercuryITHttpResponse send(HttpRequest request) {
-        return new MercuryITHttpResponse(getLocalConfigHolder(),
+        return new MercuryITHttpResponse(getConfigHolder(),
                 HttpClient.newHttpClient()
                         .send(request, HttpResponse.BodyHandlers.ofString()));
     }

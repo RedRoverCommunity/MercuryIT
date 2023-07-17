@@ -36,6 +36,6 @@ public class MercuryITMongo extends MercuryITRequest<MercuryITMongo> {
                 .codecRegistry(codecRegistry)
                 .build();
 
-        return new MercuryITMongoClient(getLocalConfigHolder(), MongoClients.create(clientSettings));
+        return new MercuryITMongoClient(getConfigHolder(), MongoClients.create(clientSettings));
     }
 }
