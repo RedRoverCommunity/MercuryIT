@@ -18,7 +18,7 @@ public class MercuryITSQLConnection extends MercuryITResponseAutoCloseable<Mercu
 
     @SneakyThrows
     public MercuryITSQLResponse open(String query) {
-        return new MercuryITSQLResponse(getConfigHolder(), connection.createStatement().executeQuery(query));
+        return new MercuryITSQLResponse(getLocalConfigHolder(), connection.createStatement().executeQuery(query));
     }
 
     public MercuryITSQLResponse openf(String query, Object... args) {

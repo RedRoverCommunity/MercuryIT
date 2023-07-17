@@ -7,26 +7,26 @@ import java.util.function.Function;
 public abstract class MercuryITObject<Self extends MercuryITObject<Self>> {
 
     /* field is protected because lombok bug */
-    protected final MercuryITConfigHolder configHolder;
+    protected final MercuryITConfigHolder localConfigHolder;
 
     protected MercuryITObject(MercuryITConfigHolder configHolder) {
-        this.configHolder = configHolder;
+        this.localConfigHolder = configHolder;
     }
 
-    protected MercuryITConfigHolder getConfigHolder() {
-        return configHolder;
+    protected MercuryITConfigHolder getLocalConfigHolder() {
+        return localConfigHolder;
     }
 
     protected <Request extends MercuryITRequest<Request>> Request request(Class<Request> clazz) {
-        return MercuryIT.request(clazz, getConfigHolder());
+        return MercuryIT.request(clazz, getLocalConfigHolder());
     }
 
-    public <Config extends MercuryITConfig> Config config(Class<Config> clazz) {
-        return getConfigHolder().config(clazz);
+    public <Config extends MercuryITConfig> Config localConfig(Class<Config> clazz) {
+        return getLocalConfigHolder().config(clazz);
     }
 
-    public <Config extends MercuryITConfig> Self config(Class<Config> clazz, Function<Config, Config> configFunction) {
-        this.getConfigHolder().set(clazz, configFunction.apply(config(clazz)));
+    public <Config extends MercuryITConfig> Self localConfig(Class<Config> clazz, Function<Config, Config> configFunction) {
+        this.getLocalConfigHolder().set(clazz, configFunction.apply(localConfig(clazz)));
         return (Self) this;
     }
 }

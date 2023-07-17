@@ -16,7 +16,7 @@ public class MercuryITMongo extends MercuryITRequest<MercuryITMongo> {
     }
 
     public MercuryITMongoClient connection() {
-        MercuryITMongoConfig mercuryITMongoConfig = config(MercuryITMongoConfig.class);
+        MercuryITMongoConfig mercuryITMongoConfig = localConfig(MercuryITMongoConfig.class);
         return connection(mercuryITMongoConfig.getUri());
     }
 
@@ -36,6 +36,6 @@ public class MercuryITMongo extends MercuryITRequest<MercuryITMongo> {
                 .codecRegistry(codecRegistry)
                 .build();
 
-        return new MercuryITMongoClient(getConfigHolder(), MongoClients.create(clientSettings));
+        return new MercuryITMongoClient(getLocalConfigHolder(), MongoClients.create(clientSettings));
     }
 }
