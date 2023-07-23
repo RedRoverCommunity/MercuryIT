@@ -3,7 +3,7 @@ package community.redrover.mercuryit;
 import java.util.function.Function;
 
 /**
- * Contains the configHolder whose configs are applied to all tests in the module.
+ * Manages the global configHolder, whose configs are applied by default to all tests in the module; this can be overridden by contextual configs on a test-to-test basis.
  */
 public class MercuryIT {
 
