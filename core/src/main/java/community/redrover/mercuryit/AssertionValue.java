@@ -44,7 +44,7 @@ public final class AssertionValue<Self extends MercuryITResponse<Self>, Value> i
     }
 
     /**
-     * For String check if value is an empty string "". For other types check if null
+     * Checks if 'null' is considered empty in the current implementation of isEmpty.
      * @return self
      */
     public Self isEmpty() {

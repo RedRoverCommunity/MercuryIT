@@ -3,7 +3,9 @@ package community.redrover.mercuryit;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-
+/**
+ * Used to create new class instances as desired.
+ */
 public class MercuryITHelper {
 
     public static class CannotCreateInstanceException extends RuntimeException {
@@ -20,6 +22,14 @@ public class MercuryITHelper {
         }
     }
 
+    /**
+     * Calls the constructor of the given class; throws an exception if the method was unable to create an instance of the class.
+     * @param clazz Desired class to be created
+     * @param classes One-element array containing only the class to be created
+     * @param objects array containing all arguments to be passed to the constructor of the desired class
+     * @return A newly-created instance of the desired class.
+     * @param <Result> Desired class to be created
+     */
     static <Result> Result create(Class<Result> clazz, Class<?>[] classes, Object[] objects) {
         Constructor<Result> defaultConstructor;
         try {

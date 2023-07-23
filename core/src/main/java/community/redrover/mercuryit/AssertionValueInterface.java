@@ -15,6 +15,11 @@ public interface AssertionValueInterface<Self extends MercuryITResponse<Self>, V
         return apply.apply(getValue());
     }
 
+    /**
+     * Applies the given function to Value, then returns the calling class.
+     * @param actual Function for changing Value
+     * @return self
+     */
     default Self peek(Consumer<Value> actual) {
         actual.accept(getValue());
         return getSelf();
