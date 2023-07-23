@@ -12,7 +12,7 @@ public class MercuryITSQL extends MercuryITRequest<MercuryITSQL> {
     }
 
     public MercuryITSQLConnection connection() {
-        MercuryITSQLConfig mercuryITSQLConfig = config(MercuryITSQLConfig.class);
+        MercuryITSQLConfig mercuryITSQLConfig = contextConfig(MercuryITSQLConfig.class);
         return connection(mercuryITSQLConfig.getDriver(), mercuryITSQLConfig.getConnect(),
                 mercuryITSQLConfig.getUsername(), mercuryITSQLConfig.getPassword());
     }

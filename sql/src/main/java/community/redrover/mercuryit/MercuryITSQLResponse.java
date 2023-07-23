@@ -48,7 +48,7 @@ public class MercuryITSQLResponse extends MercuryITResponseAutoCloseable<Mercury
     public <T> T getNextRow(Class<T> clazz) {
         Map<String, Object> currentRow = getNextRow();
         if (currentRow != null) {
-            return config(MercuryITJsonConfig.class).fromMap(currentRow, clazz);
+            return contextConfig(MercuryITJsonConfig.class).fromMap(currentRow, clazz);
         } else {
             return null;
         }
