@@ -33,7 +33,7 @@ public abstract class MercuryITObject<Self extends MercuryITObject<Self>> {
      * @return the config in the context's configHolder that matches the given class
      * @param <Config> the type of the config to be retrieved
      */
-    public <Config extends MercuryITConfig> Config config(Class<Config> clazz) {
+    public <Config extends MercuryITConfig> Config contextConfig(Class<Config> clazz) {
         return getConfigHolder().config(clazz);
     }
 
@@ -43,8 +43,8 @@ public abstract class MercuryITObject<Self extends MercuryITObject<Self>> {
      * @param configFunction Function that takes in a config, makes changes to it, and returns the updated version
      * @param <Config> class of the config to be edited
      */
-    public <Config extends MercuryITConfig> Self config(Class<Config> clazz, Function<Config, Config> configFunction) {
-        this.getConfigHolder().set(clazz, configFunction.apply(config(clazz)));
+    public <Config extends MercuryITConfig> Self contextConfig(Class<Config> clazz, Function<Config, Config> configFunction) {
+        this.getConfigHolder().set(clazz, configFunction.apply(contextConfig(clazz)));
         return (Self) this;
     }
 }

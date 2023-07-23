@@ -7,7 +7,7 @@ import java.util.function.Function;
  */
 public class MercuryIT {
 
-    private static final MercuryITConfigHolder configHolder = new MercuryITConfigHolder();
+    private static final MercuryITConfigHolder globalConfigHolder = new MercuryITConfigHolder();
 
     /**
      * Retrieves a config of the given class; if a matching config does not already exist, also creates then adds such a config to the global configHolder.
@@ -15,8 +15,8 @@ public class MercuryIT {
      * @return the config in the global configHolder that matches the given class
      * @param <Config> the type of the config to be retrieved
      */
-    public static <Config extends MercuryITConfig> Config config(Class<Config> clazz) {
-        return MercuryIT.configHolder.config(clazz);
+    public static <Config extends MercuryITConfig> Config globalConfig(Class<Config> clazz) {
+        return MercuryIT.globalConfigHolder.config(clazz);
     }
 
     /**
@@ -25,8 +25,8 @@ public class MercuryIT {
      * @param configFunction Function that takes in a config, makes changes to it, and returns the updated version
      * @param <Config> class of the config to be edited
      */
-    public static <Config extends MercuryITConfig> void config(Class<Config> clazz, Function<Config, Config> configFunction) {
-        MercuryIT.configHolder.set(clazz, configFunction.apply(config(clazz)));
+    public static <Config extends MercuryITConfig> void globalConfig(Class<Config> clazz, Function<Config, Config> configFunction) {
+        MercuryIT.globalConfigHolder.set(clazz, configFunction.apply(globalConfig(clazz)));
     }
 
     /**
@@ -37,7 +37,7 @@ public class MercuryIT {
      * @param <Request> class of the request to be created
      */
     public static <Request extends MercuryITRequest<Request>> Request request(Class<Request> clazz) {
-        return request(clazz, configHolder.copy());
+        return request(clazz, globalConfigHolder.copy());
     }
 
     /**
@@ -51,4 +51,3 @@ public class MercuryIT {
         return MercuryITHelper.create(clazz, new Class[]{MercuryITConfigHolder.class}, new Object[]{configHolder});
     }
 }
-
