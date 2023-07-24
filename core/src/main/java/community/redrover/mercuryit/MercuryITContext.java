@@ -1,6 +1,8 @@
 package community.redrover.mercuryit;
 
-
+/**
+ * Allows for the creation of contextual configs, which can then be used by the rest of the method chain.
+ */
 public final class MercuryITContext extends MercuryITRequest<MercuryITContext> {
 
     MercuryITContext(MercuryITConfigHolder configHolder) {

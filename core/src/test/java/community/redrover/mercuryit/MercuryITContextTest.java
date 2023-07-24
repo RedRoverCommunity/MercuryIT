@@ -46,7 +46,6 @@ public class MercuryITContextTest {
 
     @BeforeEach
     public void beforeTest() {
-        System.out.println("before");
         MercuryIT.globalConfig(MercuryITTestConfig.class)
                 .value(GLOBAL_VALUE);
     }
@@ -65,8 +64,12 @@ public class MercuryITContextTest {
         String global_result = MercuryIT.globalConfig(MercuryITTestConfig.class)
                 .getValue();
 
+        String new_context_local_result = MercuryIT.request(MercuryITContext.class)
+                .contextConfig(MercuryITTestConfig.class)
+                .getValue();
+
         Assertions.assertEquals(local_value, local_result);
-        System.out.println("Assert");
+        Assertions.assertEquals(GLOBAL_VALUE, new_context_local_result);
         Assertions.assertEquals(GLOBAL_VALUE, global_result);
     }
 }

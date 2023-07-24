@@ -73,12 +73,6 @@ public abstract class MercuryITConfig extends MercuryITObject<MercuryITConfig> {
      */
     protected abstract MercuryITConfig copy(MercuryITConfigHolder configHolder);
 
-    /**
-     * Used to generate an API request
-     * @param clazz type of the API request to be generated
-     * @return a generated API request
-     * @param <Request> type of the API request to be generated
-     */
     @Override
     public <Request extends MercuryITRequest<Request>> Request request(Class<Request> clazz) {
         return super.request(clazz);
