@@ -2,7 +2,6 @@ package community.redrover.mercuryit;
 
 import lombok.*;
 
-
 @Getter
 public class MercuryITMongoConfig extends MercuryITConfig {
 

@@ -10,6 +10,7 @@ public class MercuryITSQLConfigTest {
     public static final String INPUT_CONNECT = "connect1";
     public static final String INPUT_USERNAME = "username1";
     public static final String INPUT_PASSWORD = "password1";
+
     @Test
     @Order(1)
     public void testSqlConfigDefault() {
@@ -36,5 +37,4 @@ public class MercuryITSQLConfigTest {
         Assertions.assertEquals(INPUT_USERNAME, sqlConfig.getUsername());
         Assertions.assertEquals(INPUT_PASSWORD, sqlConfig.getPassword());
     }
-
 }

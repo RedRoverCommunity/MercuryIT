@@ -8,7 +8,6 @@ import org.bson.conversions.Bson;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MercuryITMongoResponse extends MercuryITResponse<MercuryITMongoResponse> {
 
     private final MercuryITMongoClient mongoClient;

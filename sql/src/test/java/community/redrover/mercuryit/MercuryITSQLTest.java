@@ -4,14 +4,13 @@ import lombok.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
 public class MercuryITSQLTest {
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -34,6 +33,7 @@ public class MercuryITSQLTest {
             return Objects.hash(id, name);
         }
     }
+
     @SneakyThrows
     @Test
     public void testResponseDeserialization(){
@@ -65,6 +65,4 @@ public class MercuryITSQLTest {
         Assertions.assertEquals(EXPECTED_PERSONS[3], actualPersons2Plus.get(2));
         Assertions.assertNull(spyResponse.getNextRow());
     }
-
-
 }

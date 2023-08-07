@@ -1,6 +1,5 @@
 package community.redrover.mercuryit;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
