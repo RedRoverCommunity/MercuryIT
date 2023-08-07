@@ -2,6 +2,11 @@ package community.redrover.mercuryit;
 
 import org.junit.jupiter.api.Assertions;
 
+/**
+ * A wrapper for JUnit assertions.
+ * @param <Self> The class that the value originated from
+ * @param <Value> Used as the "Expected" value for JUnit assertions
+ */
 public final class AssertionValue<Self extends MercuryITResponse<Self>, Value> implements AssertionValueInterface<Self, Value> {
 
     private final Self self;
@@ -44,7 +49,7 @@ public final class AssertionValue<Self extends MercuryITResponse<Self>, Value> i
     }
 
     /**
-     * For String check if value is an empty string "". For other types check if null
+     * Checks if 'null' is considered empty in the current implementation of isEmpty.
      * @return self
      */
     public Self isEmpty() {
