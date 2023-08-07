@@ -2,7 +2,6 @@ package community.redrover.mercuryit;
 
 import lombok.*;
 
-
 @Getter
 public class MercuryITMongoConfig extends MercuryITConfig {
 
@@ -35,7 +34,7 @@ public class MercuryITMongoConfig extends MercuryITConfig {
     }
 
     public MercuryITMongoConfig database(String database) {
-        this.uri = database;
+        this.database = database;
         return this;
     }
 }
