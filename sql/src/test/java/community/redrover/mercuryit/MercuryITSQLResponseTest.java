@@ -16,7 +16,7 @@ public class MercuryITSQLResponseTest {
     private static ResultSet EMPTY_RESULT_SET;
 
     @BeforeAll
-    public void createResultSet() throws SQLException {
+    public static void createResultSet() throws SQLException {
         EMPTY_RESULT_SET = Mockito.mock(ResultSet.class);
 
         Mockito.when(EMPTY_RESULT_SET.getRow()).thenReturn(0);
