@@ -2,6 +2,8 @@ package community.redrover.mercuryit;
 
 import org.junit.jupiter.api.Assertions;
 
+import java.util.Collection;
+
 /**
  * A wrapper for JUnit assertions.
  * @param <Self> The class that the value originated from
@@ -42,6 +44,8 @@ public final class AssertionValue<Self extends MercuryITResponse<Self>, Value> i
     public Self isEmpty(String message) {
         if (this.value instanceof String) {
             Assertions.assertEquals("", this.value, message);
+        } else if (this.value instanceof Collection) {
+            Assertions.assertTrue(((Collection<?>)this.value).isEmpty(), message);
         } else {
             Assertions.assertNull(this.value, message);
         }

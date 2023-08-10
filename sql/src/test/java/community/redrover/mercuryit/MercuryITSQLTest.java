@@ -15,23 +15,10 @@ public class MercuryITSQLTest {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
+    @EqualsAndHashCode
     private static class TestPerson {
-
         private int id;
         private String name;
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            TestPerson person = (TestPerson) o;
-            return id == person.id && Objects.equals(name, person.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(id, name);
-        }
     }
 
     @SneakyThrows
@@ -46,6 +33,7 @@ public class MercuryITSQLTest {
         final String TEST_FIELD_2 = "name";
 
         MercuryITConfigHolder configHolder = MercuryIT.request(MercuryITContext.class).getConfigHolder();
+
         ResultSet mockResultSet = Mockito.mock(ResultSet.class);
         MercuryITSQLResponse spyResponse = Mockito.spy(new MercuryITSQLResponse(configHolder,mockResultSet));
 
