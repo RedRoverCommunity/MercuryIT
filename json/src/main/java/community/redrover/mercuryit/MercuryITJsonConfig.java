@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.*;
 
 import java.util.Map;
@@ -19,6 +20,7 @@ public class MercuryITJsonConfig extends MercuryITConfig {
         private final ObjectMapper objectMapper = JsonMapper.builder()
                     .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
                     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    .addModule(new JavaTimeModule())
                     .build();
 
         public <T> T fromMap(Map<String, Object> map, Class<T> clazz) {
